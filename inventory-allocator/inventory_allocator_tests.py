@@ -21,6 +21,15 @@ class InventoryAllocatorTests(unittest.TestCase):
         self.assertEqual(InventoryAllocator().cheapest_shipment(order, 
             inventory), result)
     
+    # Not enough inventory -> no allocations!
+    def test_no_allocations_two(self):
+        order = {'apple': 2}
+        inventory = [{'name': 'owd', 
+                       'inventory': {'apple': 1}}]
+        result = []
+        self.assertEqual(InventoryAllocator().cheapest_shipment(order, 
+            inventory), result)
+    
     # Should split an item across warehouses if that is the only way to ship
     # an item:
     def test_perfect_split(self):
@@ -161,9 +170,20 @@ class InventoryAllocatorTests(unittest.TestCase):
         result = [{'dm': {'banana': 1}}]
         self.assertEqual(InventoryAllocator().cheapest_shipment(order,
             inventory), result)
-    
-    # Multiple order from different warehouses
+
+    # Multiple orders from different warehouses
     def test_multiple_orders(self):
+        order = {'apple': 10}
+        inventory = [{'name': 'owd', 
+                      'inventory': {'apple': 5}}, 
+            {'name': 'dm', 'inventory': {'apple': 5}}]
+        result = [{'dm': {'apple': 5}}, 
+                  {'owd': {'apple': 5}}]
+        self.assertEqual(InventoryAllocator().cheapest_shipment(order,
+            inventory), result)
+    
+    # Multiple orders split from different warehouses
+    def test_multiple_orders_split(self):
         order = {'apple': 5, 'banana': 5, 'cherry': 5}
         inventory = [{'name': 'owd', 
                        'inventory': 
@@ -196,7 +216,7 @@ class InventoryAllocatorTests(unittest.TestCase):
         result = []
         self.assertEqual(InventoryAllocator().cheapest_shipment(order,
             inventory), result)
-            
+
     # Invalid inventory results in no allocation
     def test_invalid_inventory(self):
         order = {'apple': 1}
