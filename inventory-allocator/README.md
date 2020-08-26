@@ -1,4 +1,4 @@
-### Solution
+## Solution
 
 The solution code lies within the `inventory_allocator.py` file, implemented via the `InventoryAllocator` class, as specified in the problem description. The test case code lies within the `inventory_allocator_tests.py` file, covering a breadth of strenuous test scenarios. The code for the project follows Python's `PEP 8` style guide for readability purposes. Please ensure `Python 3` is installed before running the test case suite.
 
